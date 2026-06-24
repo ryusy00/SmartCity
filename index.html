@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>스마트도시분석포털</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="site-wrap">
+    <header class="header" id="header">
+      <div class="header__inner layout">
+        <h1 class="logo">
+          <a href="#"><img src="/images/headerLogo.png" alt="광주광역시 스마트도시분석포털" /></a>
+        </h1>
+
+        <nav class="gnb" aria-label="주요 메뉴">
+          <a href="#notice">알림글</a>
+          <a href="#field-map">분야별지도</a>
+          <a href="#linked-info">연계정보</a>
+          <a href="#stats">통계연보</a>
+        </nav>
+
+        <button class="menu-btn" type="button" aria-label="모바일 메뉴 열기" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="#notice">알림글</a>
+        <a href="#field-map">분야별지도</a>
+        <a href="#linked-info">연계정보</a>
+        <a href="#stats">통계연보</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="field-section layout" id="field-map">
+        <h2 class="section-title field-title">분야별<br class="pc-only" />지도</h2>
+        <ul class="field-list" aria-label="분야별 지도 바로가기">
+          <li><a href="#"><img src="/images/icon_1.png" alt="" /><span>인구</span></a></li>
+          <li><a href="#"><img src="/images/icon_2.png" alt="" /><span>교통</span></a></li>
+          <li><a href="#"><img src="/images/icon_3.png" alt="" /><span>생활</span></a></li>
+          <li><a href="#"><img src="/images/icon_4.png" alt="" /><span>복지</span></a></li>
+          <li><a href="#"><img src="/images/icon_5.png" alt="" /><span>보건</span></a></li>
+          <li><a href="#"><img src="/images/icon_6.png" alt="" /><span>문화</span></a></li>
+          <li><a href="#"><img src="/images/icon_7.png" alt="" /><span>안전</span></a></li>
+          <li><a href="#"><img src="/images/icon_8.png" alt="" /><span>부동산</span></a></li>
+        </ul>
+      </section>
+
+      <section class="map-section layout" aria-label="부동산 정보조회">
+        <div class="map-view">
+          <div id="map" class="map-real" aria-label="광주광역시 지도"></div>
+
+          <!-- 접힌 상태에서만 보이는 버튼 -->
+          <button type="button" class="map-search-open" id="mapSearchOpen">
+            부동산 정보조회
+          </button>
+
+          <form class="map-search" id="mapSearchPanel">
+            <div class="map-search__head">
+              <h3>부동산 정보조회</h3>
+
+              <div class="map-search__head-util">
+                <a href="#" class="mini-link">메뉴이동 &gt;</a>
+                <button type="button" class="map-search__toggle" id="mapSearchClose" aria-expanded="true"
+                  aria-controls="mapSearchPanel">
+                  접기
+                </button>
+              </div>
+            </div>
+
+            <div class="map-search__body" id="mapSearchBody">
+              <fieldset>
+                <legend>주소</legend>
+                <div class="select-grid select-grid--address">
+                  <label>
+                    <span class="sr-only">구명</span>
+                    <select>
+                      <option>구명</option>
+                    </select>
+                  </label>
+
+                  <label>
+                    <span class="sr-only">동명</span>
+                    <select>
+                      <option>동명</option>
+                    </select>
+                  </label>
+
+                  <label>
+                    <span class="sr-only">일반</span>
+                    <select>
+                      <option>일반</option>
+                    </select>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>지번</legend>
+                <div class="select-grid select-grid--parcel">
+                  <label>
+                    <span class="sr-only">본번</span>
+                    <select>
+                      <option>본번</option>
+                    </select>
+                  </label>
+
+                  <span class="dash" aria-hidden="true">-</span>
+
+                  <label>
+                    <span class="sr-only">부번</span>
+                    <select>
+                      <option>부번</option>
+                    </select>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button type="submit" class="search-btn">검색</button>
+            </div>
+
+          </form>
+
+          <div class="map-controls" aria-label="지도 조작">
+            <button type="button">−&nbsp;&nbsp;지도축소</button>
+            <button type="button">+&nbsp;&nbsp;지도확장</button>
+            <button type="button" class="is-primary">항공뷰</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section layout">
+        <div class="linked-card" id="linked-info">
+          <h2 class="section-title">연계정보</h2>
+
+          <div class="tab-list" role="tablist" aria-label="연계정보 구분">
+            <button class="active" type="button" data-title="교통" data-url="https://www.gjtic.go.kr/"
+              data-pc="/images/linked_traffic.png" data-mobile="/images/linked_traffic.png">교통</button>
+
+            <button type="button" data-title="부동산"
+              data-url="https://seereal.lh.or.kr/SeerealMAP/seerealCommon/mainPage.do"
+              data-pc="/images/linked_realestate.png" data-mobile="/images/linked_realestate.png">부동산</button>
+
+            <button type="button" data-title="문화" data-url="https://tour.gwangju.go.kr/home/sub.cs?m=212"
+              data-pc="/images/linked_culture.png" data-mobile="/images/linked_culture.png">문화</button>
+
+            <button type="button" data-title="3차원지도" data-url="https://map.vworld.kr/map/maps.do"
+              data-pc="/images/linked_3dmap.png" data-mobile="/images/linked_3dmap.png">3차원지도</button>
+
+            <button type="button" data-title="관광빅데이터분석"
+              data-url="https://bigdata.gwangju.go.kr/tour/index.html#/tour/mapservice?1"
+              data-pc="/images/linked_tourbigdata.png" data-mobile="/images/linked_tourbigdata.png">관광빅데이터분석</button>
+          </div>
+
+          <a class="linked-preview" id="linkedPreview" href="https://www.gjtic.go.kr/" target="_blank"
+            rel="noopener noreferrer" aria-label="교통 연계정보 자세히 보기">
+            <picture>
+              <source id="linkedPreviewSource" media="(max-width: 767px)" srcset="/images/linked_traffic.png" />
+              <img id="linkedPreviewImg" src="/images/linked_traffic.png" alt="교통 메인 화면" />
+            </picture>
+
+            <span class="linked-preview__dim" aria-hidden="true"></span>
+            <span class="linked-preview__button">자세히보기</span>
+          </a>
+        </div>
+
+        <div class="stats-card" id="stats">
+          <h2 class="section-title">통계연보</h2>
+          <ul class="stats-list">
+            <li>
+              <div><strong>2025년 광주 통계연보</strong><span>2025년까지의 광주광역시 전체 통계연보를 제공받을 수 있습니다.</span></div>
+              <a href="#" download>다운로드</a>
+            </li>
+            <li>
+              <div><strong>2024년 광주 통계연보</strong><span>2024년까지의 광주광역시 전체 통계연보를 제공받을 수 있습니다.</span></div>
+              <a href="#" download>다운로드</a>
+            </li>
+            <li>
+              <div><strong>2023년 광주 통계연보</strong><span>2023년까지의 광주광역시 전체 통계연보를 제공받을 수 있습니다.</span></div>
+              <a href="#" download>다운로드</a>
+            </li>
+            <li>
+              <div><strong>2022년 광주 통계연보</strong><span>2022년까지의 광주광역시 전체 통계연보를 제공받을 수 있습니다.</span></div>
+              <a href="#" download>다운로드</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="notice-row layout" id="notice" aria-label="공지사항">
+        <a href="#" class="notice-title">
+          <span>N</span>
+          <strong>공지사항</strong>
+        </a>
+
+        <div class="notice-slide" aria-live="polite">
+          <a href="#" class="notice-text" id="noticeText">일부 서비스 일시중지 안내</a>
+        </div>
+
+        <time id="noticeDate" datetime="2025-09-29">2025-09-29</time>
+
+        <a href="#" class="notice-more" aria-label="공지사항 더보기"></a>
+      </section>
+    </main>
+
+    <aside class="banner-zone" aria-label="배너모음">
+      <div class="banner-zone__inner layout">
+        <h2>배너모음</h2>
+        <button class="banner-arrow banner-arrow--prev" type="button" aria-label="이전 배너"></button>
+        <div class="banner-slider">
+          <div class="banner-links">
+            <a href="#">광주광역시</a>
+            <a href="#">광주광역시 항공사진서비스</a>
+            <a href="#">SEE:REAL</a>
+            <a href="#">오매광주</a>
+            <a href="#">광주광역시 교통정보센터</a>
+          </div>
+        </div>
+        <button class="banner-arrow banner-arrow--next" type="button" aria-label="다음 배너"></button>
+      </div>
+    </aside>
+
+    <footer class="footer">
+      <div class="footer__inner layout">
+        <img src="/images/footerLogo.png" alt="내 일이 빛나는 기회도시 광주" class="footer-logo" />
+        <div class="footer-info">
+          <address>[61945]광주광역시 서구 내방로 111(치평동)<br />TEL : (062) 120</address>
+          <p>본 페이지에 게시된 메일 주소가 자동으로 수집되는 것을 거부하며, 이를 위반 시 정보통신망법에 의해 처벌됨을 유념하시기 바랍니다.</p>
+          <p>Copyright © 2025 Gwangju Metropolitan City. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./js/script.js"></script>
+
+  <script>
+    // 지도
+    document.addEventListener('DOMContentLoaded', function () {
+      const mapEl = document.getElementById('map');
+      if (!mapEl || typeof L === 'undefined') return;
+
+      // 광주광역시청 기준 좌표
+      const gwangjuCityHall = [35.1595454, 126.8526012];
+
+      const map = L.map('map', {
+        center: gwangjuCityHall,
+        zoom: 12,
+        zoomControl: false
+      });
+
+      const normalLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      const satelliteLayer = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+          maxZoom: 19,
+          attribution: 'Tiles &copy; Esri'
+        }
+      );
+
+      L.marker(gwangjuCityHall)
+        .addTo(map)
+        .bindPopup('광주광역시청')
+        .openPopup();
+
+      const controlButtons = document.querySelectorAll('.map-controls button');
+      const zoomOutBtn = controlButtons[0];
+      const zoomInBtn = controlButtons[1];
+      const aerialBtn = controlButtons[2];
+
+      if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', function () {
+          map.zoomOut();
+        });
+      }
+
+      if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', function () {
+          map.zoomIn();
+        });
+      }
+
+      let isAerial = false;
+
+      if (aerialBtn) {
+        aerialBtn.addEventListener('click', function () {
+          if (isAerial) {
+            map.removeLayer(satelliteLayer);
+            normalLayer.addTo(map);
+            aerialBtn.textContent = '항공뷰';
+            aerialBtn.classList.add('is-primary');
+          } else {
+            map.removeLayer(normalLayer);
+            satelliteLayer.addTo(map);
+            aerialBtn.textContent = '일반지도';
+            aerialBtn.classList.remove('is-primary');
+          }
+
+          isAerial = !isAerial;
+        });
+      }
+
+      setTimeout(function () {
+        map.invalidateSize();
+      }, 300);
+    });
+
+    // 지도 > 부동산 정보조회 폼
+    function initMapSearchToggle() {
+      const mapView = document.querySelector(".map-view");
+      const mapSearchOpen = document.getElementById("mapSearchOpen");
+      const mapSearchClose = document.getElementById("mapSearchClose");
+
+      if (!mapView || !mapSearchOpen || !mapSearchClose) return;
+
+      // 접기
+      mapSearchClose.addEventListener("click", function () {
+        mapView.classList.add("is-search-collapsed");
+        mapSearchClose.setAttribute("aria-expanded", "false");
+      });
+
+      // 열기
+      mapSearchOpen.addEventListener("click", function () {
+        mapView.classList.remove("is-search-collapsed");
+        mapSearchClose.setAttribute("aria-expanded", "true");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initMapSearchToggle();
+    });
+
+    // 연계정보 탭 기능
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabButtons = document.querySelectorAll('#linked-info .tab-list button');
+      const previewLink = document.getElementById('linkedPreview');
+      const previewImg = document.getElementById('linkedPreviewImg');
+      const previewSource = document.getElementById('linkedPreviewSource');
+
+      if (!tabButtons.length || !previewLink || !previewImg) return;
+
+      tabButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const title = button.dataset.title;
+          const url = button.dataset.url;
+          const pcImage = button.dataset.pc;
+          const mobileImage = button.dataset.mobile;
+
+          tabButtons.forEach(function (btn) {
+            btn.classList.remove('active');
+          });
+
+          button.classList.add('active');
+
+          previewLink.href = url;
+          previewLink.setAttribute('aria-label', title + ' 연계정보 자세히 보기');
+
+          previewImg.src = pcImage;
+          previewImg.alt = title + ' 메인 화면';
+
+          if (previewSource && mobileImage) {
+            previewSource.srcset = mobileImage;
+          }
+        });
+      });
+    });
+
+    // 배너모음
+    document.addEventListener('DOMContentLoaded', function () {
+      const bannerZone = document.querySelector('.banner-zone');
+      if (!bannerZone) return;
+
+      const slider = bannerZone.querySelector('.banner-slider');
+      const track = bannerZone.querySelector('.banner-links');
+      const items = Array.from(bannerZone.querySelectorAll('.banner-links a'));
+      const prevBtn = bannerZone.querySelector('.banner-arrow--prev');
+      const nextBtn = bannerZone.querySelector('.banner-arrow--next');
+
+      if (!slider || !track || !items.length || !prevBtn || !nextBtn) return;
+
+      let currentIndex = 0;
+      let perView = 5;
+      let maxIndex = 0;
+
+      function getPerView() {
+        const width = window.innerWidth;
+
+        if (width <= 480) return 1;
+        if (width <= 767) return 2;
+        if (width <= 1024) return 3;
+        if (width <= 1280) return 4;
+
+        return 5;
+      }
+
+      function updateBannerSlider() {
+        perView = Math.min(getPerView(), items.length);
+        maxIndex = Math.max(items.length - perView, 0);
+
+        if (currentIndex > maxIndex) {
+          currentIndex = maxIndex;
+        }
+
+        track.style.setProperty('--banner-view', perView);
+
+        const itemWidth = slider.clientWidth / perView;
+        const moveX = currentIndex * itemWidth;
+
+        track.style.transform = 'translate3d(-' + moveX + 'px, 0, 0)';
+
+        if (maxIndex === 0) {
+          prevBtn.classList.add('is-disabled');
+          nextBtn.classList.add('is-disabled');
+        } else {
+          prevBtn.classList.remove('is-disabled');
+          nextBtn.classList.remove('is-disabled');
+        }
+      }
+
+      prevBtn.addEventListener('click', function () {
+        if (maxIndex === 0) return;
+
+        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+        updateBannerSlider();
+      });
+
+      nextBtn.addEventListener('click', function () {
+        if (maxIndex === 0) return;
+
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        updateBannerSlider();
+      });
+
+      window.addEventListener('resize', updateBannerSlider);
+
+      updateBannerSlider();
+    });
+
+    // 공지사항
+    document.addEventListener('DOMContentLoaded', function () {
+      const noticeRow = document.querySelector('.notice-row');
+      const noticeText = document.getElementById('noticeText');
+      const noticeDate = document.getElementById('noticeDate');
+
+      if (!noticeRow || !noticeText || !noticeDate) return;
+
+      const notices = [
+        {
+          title: '일부 서비스 일시중지 안내',
+          date: '2025-09-29',
+          url: '#'
+        },
+        {
+          title: '스마트도시분석포털 시스템 점검 안내',
+          date: '2025-09-18',
+          url: '#'
+        },
+        {
+          title: '광주광역시 통계연보 자료 갱신 안내',
+          date: '2025-09-05',
+          url: '#'
+        },
+        {
+          title: '분야별 지도 서비스 이용 안내',
+          date: '2025-08-27',
+          url: '#'
+        }
+      ];
+
+      let currentIndex = 0;
+      let timer = null;
+
+      function changeNotice() {
+        noticeRow.classList.remove('is-entering');
+        noticeRow.classList.add('is-changing');
+
+        setTimeout(function () {
+          currentIndex = (currentIndex + 1) % notices.length;
+
+          const currentNotice = notices[currentIndex];
+
+          noticeText.textContent = currentNotice.title;
+          noticeText.href = currentNotice.url;
+
+          noticeDate.textContent = currentNotice.date;
+          noticeDate.setAttribute('datetime', currentNotice.date);
+
+          noticeRow.classList.remove('is-changing');
+          noticeRow.classList.add('is-entering');
+
+          setTimeout(function () {
+            noticeRow.classList.remove('is-entering');
+          }, 400);
+        }, 380);
+      }
+
+      function startNoticeSlider() {
+        timer = setInterval(changeNotice, 3500);
+      }
+
+      function stopNoticeSlider() {
+        clearInterval(timer);
+      }
+
+      noticeRow.addEventListener('mouseenter', stopNoticeSlider);
+      noticeRow.addEventListener('mouseleave', startNoticeSlider);
+
+      noticeRow.addEventListener('focusin', stopNoticeSlider);
+      noticeRow.addEventListener('focusout', startNoticeSlider);
+
+      startNoticeSlider();
+    });
+  </script>
+
+</body>
+
+</html>
