@@ -1066,9 +1066,7 @@ address { font-style: normal; }
   }
 }
 @media (max-width: 480px) {
-  .layout { padding-left: 20px; padding-right: 20px; }
-  .header__inner { padding-left: 20px; padding-right: 20px; }
-  .logo img { width: 205px; }
+  .logo img { width: 200px; }
   .field-list { gap: 22px 14px; }
   .field-list img { width: 56px; height: 56px; }
   .map-search { width: 254px; left: 14px; }
