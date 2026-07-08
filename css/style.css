@@ -1376,6 +1376,11 @@ address { font-style: normal; }
       display: none;
   }
 }
+@media (max-width: 360px) {
+  .map-search {
+    width: 260px;
+  }
+}
 
 /* Stats yearbook - single book selector */
 .stats-card--single .stats-head {
